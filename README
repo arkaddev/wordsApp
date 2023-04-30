@@ -1,1 +1,7 @@
+Git branches:
+- Master - default branch, stable all the time.
+- Development - long lived feature branch, holds changes before they are ready to go to Master branch.
+- Feature - temporary git branch for new feature.
 
+version 0.1
+-
