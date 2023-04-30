@@ -1,5 +1,8 @@
 package com.example.wordsApp.service;
 
+import com.example.wordsApp.exception.WordDeleteException;
+import com.example.wordsApp.exception.WordNotFoundException;
+import com.example.wordsApp.exception.WordSaveException;
 import com.example.wordsApp.model.Word;
 import com.example.wordsApp.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +29,30 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public Word getWordById(Long id) {
+    public Word getWordById(Long id) throws WordNotFoundException {
         Optional<Word> optionalWord = wordRepository.findById(id);
-        Word word = optionalWord.orElseThrow();
-        return word;
+
+        return optionalWord.orElseThrow(() -> new WordDeleteException(id));
     }
 
     @Override
-    public Word createWord(Word word) {
-        return wordRepository.save(word);
+    public Word createWord(Word word) throws WordSaveException {
+       try {
+           return wordRepository.save(word);
+       } catch (Exception e) {
+           throw new WordSaveException();
+       }
+
     }
 
     @Override
-    public String deleteWord(Long id) {
+    public String deleteWord(Long id) throws WordDeleteException {
         Word word = getWordById(id);
-        wordRepository.delete(word);
+        try {
+            wordRepository.delete(word);
+        } catch (Exception e) {
+            throw new WordDeleteException(word.getId());
+        }
         return "Word " + id + " deleted";
     }
 
@@ -55,11 +67,11 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public Word getRandomWord() {
-        List<Word> wordList= wordRepository.findAll();
+        List<Word> wordList = wordRepository.findAll();
 
         Random random = new Random();
         int drawnNumber = random.nextInt(wordList.size());
-        Word word = getWordById(Long.valueOf(drawnNumber+1));
+        Word word = getWordById(Long.valueOf(drawnNumber + 1));
 
         return word;
     }

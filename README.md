@@ -5,7 +5,7 @@
 - Development - long lived feature branch, holds changes before they are ready to go to Master branch.
 - Feature - temporary git branch for new feature.
 
-### Versions
+### Roadmap:
 version 0.1
 - database connection
 - swagger tool
@@ -21,8 +21,14 @@ version 0.3
 
 version 0.4
 - hateoas
+  
+version 0.5
+- uuid
+- log table
+
+version 0.6
 - cucumber tests
 
 
 ### Tools:
-- Swagger
+- Swagger - for testing and building REST Api http://localhost:8080/swagger-ui/index.html
