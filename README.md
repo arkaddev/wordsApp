@@ -22,3 +22,7 @@ version 0.3
 version 0.4
 - hateoas
 - cucumber tests
+
+
+### Tools:
+- Swagger
