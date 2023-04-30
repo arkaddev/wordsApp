@@ -4,4 +4,4 @@ Git branches:
 - Feature - temporary git branch for new feature.
 
 version 0.1
--
+- database connection
